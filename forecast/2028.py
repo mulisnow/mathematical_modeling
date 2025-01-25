@@ -12,18 +12,8 @@ model_dir = r"D:\桌面\2025美国数学建模\模型\1896"
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
-# 读取预测数据，尝试不同的编码格式，这里以gbk为例
-try:
-    df_2004 = pd.read_csv(prediction_data_file, encoding='gbk')
-except UnicodeDecodeError:
-    try:
-        df_2004 = pd.read_csv(prediction_data_file, encoding='utf-16')
-    except UnicodeDecodeError:
-        try:
-            df_2004 = pd.read_csv(prediction_data_file, encoding='latin-1')
-        except UnicodeDecodeError:
-            print("无法确定文件的正确编码，请检查文件并手动指定编码。")
-            exit(1)
+# 读取预测数据
+df_2004 = pd.read_csv(prediction_data_file)
 
 # 保存原始的 NOC 列
 original_noc = df_2004['NOC'].astype(str)

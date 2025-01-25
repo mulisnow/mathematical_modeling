@@ -4,6 +4,7 @@ import lightgbm as lgb
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from joblib import dump, load  # 导入joblib库
+import matplotlib.pyplot as plt
 
 # 读取数据文件所在目录
 data_dir = "D:/桌面/2025美国数学建模/数据/特征工程"
@@ -72,3 +73,30 @@ dump(model_total, os.path.join(model_dir, 'model_total.joblib'))
 dump(le_noc, os.path.join(model_dir, 'le_noc.joblib'))
 dump(le_sport, os.path.join(model_dir, 'le_sport.joblib'))
 dump(le_event, os.path.join(model_dir, 'le_event.joblib'))
+
+# 训练模型后，获取特征重要性
+importance = model_gold.feature_importances_
+
+# 创建特征名称列表
+feature_names = features.columns.tolist()
+
+# 绘制特征重要性图
+plt.figure(figsize=(10, 6))
+plt.barh(feature_names, importance, color='skyblue')
+plt.xlabel('Feature Importance')
+plt.title('Feature Importance for Gold Medal Prediction')
+plt.savefig(r"D:\桌面\2025美国数学建模\模型\图表\feature_importance.png")  # 保存特征重要性图
+plt.show()
+
+# 预测测试集
+y_pred_gold = model_gold.predict(X_test)
+
+# 绘制预测结果与实际结果的对比图
+plt.figure(figsize=(10, 6))
+plt.scatter(y_test['Gold'], y_pred_gold, alpha=0.5)
+plt.plot([y_test['Gold'].min(), y_test['Gold'].max()], [y_test['Gold'].min(), y_test['Gold'].max()], 'r--')
+plt.xlabel('Actual Gold Medals')
+plt.ylabel('Predicted Gold Medals')
+plt.title('Actual vs Predicted Gold Medals')
+plt.savefig(r"D:\桌面\2025美国数学建模\模型\图表\actual_vs_predicted_gold.png")  # 保存预测结果对比图
+plt.show()
