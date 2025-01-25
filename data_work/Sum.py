@@ -162,7 +162,7 @@ for filename in os.listdir(feature_folder):
             print("合并后数据示例:", merged_data.head())
 
             # 保存更新后的数据
-            merged_data.to_csv(file_path, index=False)
+            merged_data.to_csv(file_path, index=False, encoding='utf-8')
             print(f"已成功更新文件: {file_path}")
 
         except Exception as e:

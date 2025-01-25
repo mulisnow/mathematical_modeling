@@ -4,26 +4,16 @@ from joblib import load
 from sklearn.preprocessing import LabelEncoder
 
 # 定义数据文件路径和输出目录
-prediction_data_file = r"D:\桌面\2025美国数学建模\数据\预测\feature_analysis_2028.csv"
+prediction_data_file = r"D:\桌面\2025美国数学建模\数据\特征工程\feature_analysis_2024.csv"
 output_dir = r"D:\桌面\2025美国数学建模\结果"
-model_dir = r"D:\桌面\2025美国数学建模\模型\1896"
+model_dir = r"D:\桌面\2025美国数学建模\模型"
 
 # 确保输出目录存在
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 
-# 读取预测数据，尝试不同的编码格式，这里以gbk为例
-try:
-    df_2004 = pd.read_csv(prediction_data_file, encoding='gbk')
-except UnicodeDecodeError:
-    try:
-        df_2004 = pd.read_csv(prediction_data_file, encoding='utf-16')
-    except UnicodeDecodeError:
-        try:
-            df_2004 = pd.read_csv(prediction_data_file, encoding='latin-1')
-        except UnicodeDecodeError:
-            print("无法确定文件的正确编码，请检查文件并手动指定编码。")
-            exit(1)
+# 读取预测数据
+df_2004 = pd.read_csv(prediction_data_file)
 
 # 保存原始的 NOC 列
 original_noc = df_2004['NOC'].astype(str)
@@ -68,7 +58,7 @@ results = pd.DataFrame({
 })
 
 # 保存结果到指定路径
-output_file = os.path.join(output_dir, "predictions_2028.csv")
+output_file = os.path.join(output_dir, "predictions_2024.csv")
 results.to_csv(output_file, index=False)
 
 print(f"预测结果已保存到 {output_file}")

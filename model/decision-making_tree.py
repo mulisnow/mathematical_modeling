@@ -14,7 +14,7 @@ all_data = pd.DataFrame()
 
 for file in data_files:
     df = pd.read_csv(file)
-    df = df[df['Year'].astype(int) >= 1896]  # 只使用2000年及以后的数据
+    #df = df[df['Year'].astype(int) >= 1896 ]  # 只使用2000年及以后的数据
     all_data = pd.concat([all_data, df], ignore_index=True)
 
 # 处理缺失值
@@ -27,7 +27,12 @@ all_data['NOC'] = all_data['NOC'].astype(str)
 features = all_data[['NOC', 'Sport', 'Event', 'athletes_number', 'Total Events', 'Year',
                      'gold_number_previous', 'silver_number_previous', 'bronze_number_previous',
                      'total_number_previous', 'Host']].copy()
-features['Host']=features['Host']*10
+features['Host']=features['Host']*10000
+c=features['Host']
+for value in c:
+    if value > 1:
+        # 执行某些操作
+        print(value)
 # 对分类特征进行编码
 le_noc = LabelEncoder()
 le_sport = LabelEncoder()
@@ -54,7 +59,7 @@ model_bronze.fit(X_train, y_train['Bronze'])
 model_total.fit(X_train, y_train['Total'])
 
 # 保存模型
-model_dir = "D:/桌面/2025美国数学建模/模型/Host_10"
+model_dir = "D:/桌面/2025美国数学建模/模型/1896"
 if not os.path.exists(model_dir):
     os.makedirs(model_dir)
 

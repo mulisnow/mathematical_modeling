@@ -20,7 +20,7 @@ data = data.drop_duplicates()
 # 保存重复行到CSV
 if not duplicates.empty:
     duplicates_file_path = os.path.join(deleted_data_dir, "deleted_duplicates.csv")
-    duplicates.to_csv(duplicates_file_path, index=False)
+    duplicates.to_csv(duplicates_file_path, index=False, encoding='utf-8')
     print(f"删除的重复行已保存到: {duplicates_file_path}")
 
 # 记录缺失值的行
@@ -30,7 +30,7 @@ data = data.dropna()
 # 保存缺失值行到CSV
 if not missing_values.empty:
     missing_values_file_path = os.path.join(deleted_data_dir, "deleted_missing_values.csv")
-    missing_values.to_csv(missing_values_file_path, index=False)
+    missing_values.to_csv(missing_values_file_path, index=False, encoding='utf-8')
     print(f"删除的缺失值行已保存到: {missing_values_file_path}")
 
 # 重置索引
@@ -42,5 +42,5 @@ print(data.head())
 
 # 可选：将清洗后的数据保存到新的CSV文件
 cleaned_file_path = r"D:\桌面\2025美国数学建模\题目\2025_MCM-ICM_Problems\2025_Problem_C_Data\cleaned_summerOly_athletes.csv"
-data.to_csv(cleaned_file_path, index=False)
+data.to_csv(cleaned_file_path, index=False, encoding='utf-8')
 print(f"\n清洗后的数据已保存到: {cleaned_file_path}")
