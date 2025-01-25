@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from joblib import dump, load  # 导入joblib库
 import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error, r2_score  # 导入必要的库
 
 # 读取数据文件所在目录
 data_dir = "D:/桌面/2025美国数学建模/数据/特征工程"
@@ -28,12 +29,8 @@ all_data['NOC'] = all_data['NOC'].astype(str)
 features = all_data[['NOC', 'Sport', 'Event', 'athletes_number', 'Total Events', 'Year',
                      'gold_number_previous', 'silver_number_previous', 'bronze_number_previous',
                      'total_number_previous', 'Host']].copy()
-features['Host']=features['Host']*10000
-c=features['Host']
-for value in c:
-    if value > 1:
-        # 执行某些操作
-        print(value)
+
+
 # 对分类特征进行编码
 le_noc = LabelEncoder()
 le_sport = LabelEncoder()
@@ -91,6 +88,19 @@ plt.show()
 # 预测测试集
 y_pred_gold = model_gold.predict(X_test)
 
+# 计算标准差和方差
+std_dev = y_pred_gold.std()
+variance = y_pred_gold.var()
+
+# 计算MSE和R²
+mse = mean_squared_error(y_test['Gold'], y_pred_gold)
+r2 = r2_score(y_test['Gold'], y_pred_gold)
+
+# 打印结果
+print(f'Standard Deviation: {std_dev}')
+print(f'Variance: {variance}')
+print(f'Mean Squared Error: {mse}')
+print(f'R² Score: {r2}')
 # 绘制预测结果与实际结果的对比图
 plt.figure(figsize=(10, 6))
 plt.scatter(y_test['Gold'], y_pred_gold, alpha=0.5)

@@ -42,4 +42,4 @@ def average_predictions(input_file, output_file):
 if __name__ == "__main__":
     input_file = r"D:\桌面\2025美国数学建模\结果\predictions_2028.csv"
     output_file = r"D:\桌面\2025美国数学建模\结果\averaged_predictions_2028.csv"
-    average_predictions(input_file, output_file) 
+    average_predictions(input_file, output_file)
